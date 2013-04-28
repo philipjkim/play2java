@@ -1,0 +1,33 @@
+@(archives: List[Archive], archiveForm: Form[Archive])
+@import helper._
+
+@main("Archives") {
+
+  @if(flash.size > 0) {
+    <p>@flash.get("success")</p>
+  }
+
+  <h1>@archives.size() archive(s)</h1>
+  
+  <ul>
+    @for(a <- archives) {
+      <li>
+        <a href="@routes.Archives.show(a.id)">@a.title</a>
+        @form(routes.Archives.delete(a.id)) {
+          <input type="submit" value="Delete">
+        }
+      </li>
+    }
+  </ul>
+
+  <h2>Add a new archive</h2>
+  
+  @form(routes.Archives.create()) {
+    @inputText(archiveForm("title"))
+    @inputText(archiveForm("path"))
+  
+    <input type="submit" value="Create">
+  
+  } 
+
+}

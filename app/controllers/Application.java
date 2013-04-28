@@ -30,6 +30,7 @@ public class Application extends Controller {
 
 	public static Result deleteTask(Long id) {
 		Task.delete(id);
+		flash("success", "Successfully deleted.");
 		return redirect(routes.Application.tasks());
 	}
 }
