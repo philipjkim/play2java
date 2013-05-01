@@ -1,0 +1,14 @@
+@(user: User)
+@import helper._
+
+@main("User") {
+
+  <ul>
+      <li>email: @user.email</li>
+      <li>password: @user.password</li>
+      <li>salt: @user.salt</li>
+      <li>nickname: @user.nickname</li>
+      <li>accessToken: @user.accessToken</li>
+  </ul>
+
+}

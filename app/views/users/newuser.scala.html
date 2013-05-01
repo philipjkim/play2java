@@ -1,0 +1,21 @@
+@(userForm: Form[User])
+@import helper._
+
+@main("Users") {
+
+  @if(flash.size > 0) {
+    <p>@flash.get("success")</p>
+  }
+
+  <h1>Add a new user</h1>
+  
+  @form(routes.Users.create()) {
+    @inputText(userForm("email"))
+    @inputText(userForm("password"))
+    @inputText(userForm("nickname"))
+  
+    <input type="submit" value="Create">
+  
+  } 
+
+}

@@ -1,0 +1,25 @@
+@(users: List[User])
+@import helper._
+
+@main("Users") {
+
+  @if(flash.size > 0) {
+    <p>@flash.get("success")</p>
+  }
+
+  <h1>@users.size() user(s)</h1>
+  
+  <a href="/users/new">New User</a>
+  
+  <ul>
+    @for(u <- users) {
+      <li>
+        <a href="@routes.Users.show(u.email)">@u.email</a>
+        @form(routes.Users.delete(u.email)) {
+          <input type="submit" value="Delete">
+        }
+      </li>
+    }
+  </ul>
+
+}

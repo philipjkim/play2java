@@ -16,5 +16,12 @@ POST    /archives               controllers.Archives.create()
 GET     /archives/:id           controllers.Archives.show(id: Long)
 POST    /archives/:id/delete    controllers.Archives.delete(id: Long)
 
+# Users
+GET     /users                  controllers.Users.index()
+POST    /users                  controllers.Users.create()
+GET     /users/new              controllers.Users.newUser()
+GET     /users/:email           controllers.Users.show(email: String)
+POST    /users/:email/delete    controllers.Users.delete(email: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
