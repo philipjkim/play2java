@@ -2,6 +2,7 @@ package models;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import play.data.format.Formats.NonEmpty;
@@ -29,7 +31,6 @@ public class User extends Model {
 	@NonEmpty
 	public String email;
 
-	@Required
 	public String nickname;
 
 	@Required
@@ -49,16 +50,18 @@ public class User extends Model {
 	public static User findByEmail(String email) {
 		return find.where().eq("email", email).findUnique();
 	}
-	
+
 	public static void create(User user) {
 		user.updatePassword(user.password);
+		if (isNullOrEmpty(user.nickname))
+			user.nickname = StringUtils.substringBefore(user.email, "@");
 		user.save();
 	}
-	
+
 	public static void remove(String email) {
 		find.ref(email).delete();
 	}
-	
+
 	public static boolean isAuthValid(String email, String password) {
 		User user = findByEmail(email);
 		if (user == null)
@@ -80,7 +83,7 @@ public class User extends Model {
 		password = DigestUtils.md5Hex(plainPassword + salt);
 		updateAccessToken();
 	}
-	
+
 	public void updateAccessToken() {
 		accessToken = RandomStringUtils.randomAlphanumeric(ACCESS_TOKEN_LENGTH);
 	}

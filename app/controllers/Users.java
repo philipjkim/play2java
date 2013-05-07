@@ -37,4 +37,17 @@ public class Users extends Controller {
 			return redirect(routes.Users.newUser());
 		}
 	}
+
+	public static Result login() {
+		return ok(views.html.users.login.render(userForm));
+	}
+
+	public static Result authenticate() {
+		Form<User> filledForm = userForm.bindFromRequest();
+		if (filledForm.hasErrors()) {
+			return badRequest(views.html.users.login.render(filledForm));
+		} else {
+			return ok(filledForm.get().toString());
+		}
+	}
 }

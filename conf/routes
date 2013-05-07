@@ -20,6 +20,8 @@ POST    /archives/:id/delete    controllers.Archives.delete(id: Long)
 GET     /users                  controllers.Users.index()
 POST    /users                  controllers.Users.create()
 GET     /users/new              controllers.Users.newUser()
+GET     /users/login            controllers.Users.login()
+POST    /users/login            controllers.Users.authenticate()
 GET     /users/:email           controllers.Users.show(email: String)
 POST    /users/:email/delete    controllers.Users.delete(email: String)
 
