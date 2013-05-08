@@ -1,0 +1,17 @@
+@(userForm: Form[User])
+@import helper._
+
+@main("Login") {
+  <h1>Login</h1>
+
+  <form action="/users/login" method="POST">
+    <label for="email">email</label>
+    <input type="email" id="email" name="email" value="" size="50">
+    <br />
+    <label for="password">password</label>
+    <input type="password" id="password" name="password" value="">
+    <br />
+    <input type="submit" value="Login">
+  </form>
+
+}
