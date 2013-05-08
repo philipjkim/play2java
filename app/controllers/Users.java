@@ -1,7 +1,11 @@
 package controllers;
 
 import models.User;
+
+import org.codehaus.jackson.node.ObjectNode;
+
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -47,7 +51,13 @@ public class Users extends Controller {
 		if (filledForm.hasErrors()) {
 			return badRequest(views.html.users.login.render(filledForm));
 		} else {
-			return ok(filledForm.get().toString());
+			ObjectNode result = Json.newObject();
+			User u = filledForm.get();
+			if (User.isAuthValid(u.email, u.password))
+				result.put("status", "OK");
+			else
+				result.put("status", "Authentication failed");
+			return ok(result);
 		}
 	}
 }
